@@ -1,5 +1,6 @@
-import { SiGithub, SiLinkerd } from "react-icons/si";
+import { SiGithub } from "react-icons/si";
 import { Mail } from "lucide-react";
+import { FaLinkedin } from "react-icons/fa";
 import Container from "@/components/ui/Container";
 
 export default function Footer() {
@@ -29,7 +30,7 @@ export default function Footer() {
             aria-label="LinkedIn"
             className="text-text-secondary hover:text-text-primary"
           >
-            <SiLinkerd className="h-5 w-5" />
+            <FaLinkedin className="h-5 w-5" />
           </a>
           <a
             href="mailto:zainirfan565@gmail.com"

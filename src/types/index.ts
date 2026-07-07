@@ -31,3 +31,11 @@ export interface SkillCategory {
   category: string;
   items: string[];
 }
+
+export interface ContactFormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export type SubmissionStatus = "idle" | "loading" | "success" | "error";
