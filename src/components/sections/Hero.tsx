@@ -13,7 +13,7 @@ export default function Hero() {
 
       <HeroRing />
 
-      <div className="relative flex flex-col items-center gap-8 text-center">
+      <div className="relative z-10 flex flex-col items-center gap-8 text-center">
         <FadeIn>
           <h1 className="text-[clamp(3rem,7vw,6rem)] leading-[1.05] font-extrabold tracking-tight">
             Zain Irfan
