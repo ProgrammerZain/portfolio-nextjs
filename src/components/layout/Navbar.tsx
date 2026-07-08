@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { IconButton, Drawer } from "@mui/material";
@@ -12,7 +12,8 @@ import Button from "@/components/ui/Button";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const activeId = useActiveSection(navLinks.map((l) => l.href.slice(1)));
+  const sectionIds = useMemo(() => navLinks.map((l) => l.href.slice(1)), []);
+  const activeId = useActiveSection(sectionIds);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
     if (typeof window !== "undefined") {
       return window.matchMedia("(prefers-reduced-motion: reduce)").matches;

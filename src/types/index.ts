@@ -39,3 +39,30 @@ export interface ContactFormData {
 }
 
 export type SubmissionStatus = "idle" | "loading" | "success" | "error";
+
+export interface Metric {
+  label: string;
+  value: string;
+}
+
+export interface AboutContent {
+  title: string;
+  description: string;
+  whatICareAbout: string[];
+}
+
+export interface ContactInfo {
+  location: string;
+  phone: string;
+  email: string;
+  linkedin: string;
+  github: string;
+}
+
+export interface EducationEntry {
+  id: string;
+  institution: string;
+  degree: string;
+  period: string;
+  subjects?: string[];
+}

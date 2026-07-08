@@ -1,14 +1,9 @@
 import Section from "@/components/ui/Section";
 import FadeIn from "@/components/animations/FadeIn";
 import GlassCard from "@/components/ui/GlassCard";
+import { metrics, aboutContent } from "@/constants/about";
 
 export default function About() {
-  const metrics = [
-    { label: "Years Exp", value: "2+" },
-    { label: "Projects Shipped", value: "5+" },
-    { label: "Satisfied Clients", value: "4+" },
-  ];
-
   return (
     <Section id="about">
       <div className="grid items-center gap-12 md:grid-cols-2">
@@ -16,16 +11,9 @@ export default function About() {
           <p className="text-brand-400 text-sm font-semibold tracking-widest uppercase">
             About
           </p>
-          <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-            Full-stack engineer with healthcare-grade discipline
-          </h2>
+          <h2 className="mt-3 text-3xl font-bold md:text-4xl">{aboutContent.title}</h2>
           <p className="text-text-secondary mt-6 text-base leading-relaxed md:text-lg">
-            I build production software where correctness actually matters —
-            HIPAA-compliant healthcare SaaS, LLM-powered automation pipelines, and
-            real-time systems used by real clinicians and patients. My work spans the full
-            stack: Django and FastAPI on the backend, React and React Native on the front,
-            with a growing focus on applying AI to eliminate manual, error-prone
-            workflows.
+            {aboutContent.description}
           </p>
         </FadeIn>
 
@@ -44,20 +32,12 @@ export default function About() {
               What I care about
             </h3>
             <ul className="text-text-secondary space-y-3 text-sm">
-              <li className="flex gap-3">
-                <span className="text-brand-400 mt-1">•</span>
-                <span>
-                  Writing maintainable, well-tested code that stands the test of time
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-brand-400 mt-1">•</span>
-                <span>Building accessible, intuitive products that users love</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-brand-400 mt-1">•</span>
-                <span>Automating repetitive work so teams can focus on what matters</span>
-              </li>
+              {aboutContent.whatICareAbout.map((item, i) => (
+                <li key={i} className="flex gap-3">
+                  <span className="text-brand-400 mt-1">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
           </GlassCard>
         </FadeIn>

@@ -8,12 +8,20 @@ export const projects: Project[] = [
       "HIPAA-compliant, multi-tenant platform serving 7+ organizations and 1,000+ users. Designed 50+ REST APIs across referrals, clinician workflows, messaging, and scheduling, and cut referral load time from ~6s to ~2s through query optimization.",
     image: "/projects/healthcare-saas.png",
     stack: [
+      "Python",
       "Django",
       "Django REST Framework",
+      "FastAPI",
       "PostgreSQL",
       "Redis",
+      "Celery",
+      "Docker",
       "WebSockets",
       "JWT",
+      "React",
+      "React Native",
+      "RingCentral",
+      "Google SSO",
     ],
   },
   {
@@ -22,7 +30,21 @@ export const projects: Project[] = [
     summary:
       "End-to-end automation system using Selenium, OpenAI, and Pinecone to collect, process, and categorize government opportunities, backed by asynchronous background processing with Redis and RQ Workers.",
     image: "/projects/ai-automation.png",
-    stack: ["Django", "Next.js", "OpenAI API", "Pinecone", "Selenium", "Redis"],
+    stack: [
+      "Python",
+      "Django",
+      "Django REST Framework",
+      "Next.js",
+      "React",
+      "PostgreSQL",
+      "Redis",
+      "RQ Workers",
+      "OpenAI API",
+      "Pinecone",
+      "Selenium",
+      "Cloudinary",
+      "DigitalOcean Spaces",
+    ],
   },
   {
     id: "clinician-messaging",
@@ -30,6 +52,6 @@ export const projects: Project[] = [
     summary:
       "Real-time messaging and push notifications across web and mobile using WebSockets, WatermelonDB, and APNs, plus RingCentral integration for in-app patient calling with call transcription.",
     image: "/projects/messaging.png",
-    stack: ["WebSockets", "React Native", "APNs", "RingCentral"],
+    stack: ["React", "React Native", "WebSockets", "APNs", "RingCentral"],
   },
 ];
