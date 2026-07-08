@@ -1,20 +1,36 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
-import type { Project } from "@/types";
-import GlassCard from "@/components/ui/GlassCard";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Code2 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
+import type { Project } from "@/types";
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const [imageError, setImageError] = useState(false);
+
   return (
-    <GlassCard className="overflow-hidden p-0">
-      <div className="bg-surface relative aspect-video w-full">
-        <Image
-          src={project.image}
-          alt={`${project.title} preview`}
-          fill
-          className="object-cover"
-          sizes="(min-width: 768px) 50vw, 100vw"
-        />
+    <motion.div
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="glass group overflow-hidden rounded-[var(--radius-card)] transition-shadow duration-300 hover:shadow-[0_20px_45px_-15px_rgba(0,0,0,0.55)]"
+    >
+      <div className="from-brand-500/25 via-accent-500/15 relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br to-transparent">
+        {!imageError ? (
+          <Image
+            src={project.image}
+            alt={`${project.title} preview`}
+            fill
+            onError={() => setImageError(true)}
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(min-width: 768px) 50vw, 100vw"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <Code2 className="text-white/20" size={48} />
+          </div>
+        )}
       </div>
 
       <div className="p-6">
@@ -27,7 +43,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           {project.stack.map((tech) => (
             <span
               key={tech}
-              className="border-border text-text-secondary rounded-full border px-3 py-1 text-xs font-medium"
+              className="text-text-secondary rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium"
             >
               {tech}
             </span>
@@ -59,6 +75,6 @@ export default function ProjectCard({ project }: { project: Project }) {
           </div>
         )}
       </div>
-    </GlassCard>
+    </motion.div>
   );
 }

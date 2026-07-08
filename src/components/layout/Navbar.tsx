@@ -38,20 +38,30 @@ export default function Navbar() {
           </a>
 
           <nav className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors",
-                  activeId === link.href.slice(1)
-                    ? "text-text-primary"
-                    : "text-text-secondary hover:text-text-primary",
-                )}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeId === link.href.slice(1);
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "relative py-1 text-sm font-medium transition-colors",
+                    isActive
+                      ? "text-text-primary"
+                      : "text-text-secondary hover:text-text-primary",
+                  )}
+                >
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="bg-brand-400 absolute right-0 -bottom-1 left-0 h-[2px] rounded-full"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
+              );
+            })}
           </nav>
 
           <div className="hidden md:block">

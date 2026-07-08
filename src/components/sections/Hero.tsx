@@ -5,13 +5,25 @@ import HeroActions from "./HeroActions";
 
 export default function Hero() {
   return (
-    <Section id="home" className="pt-36 pb-20 md:pt-44">
-      <div className="flex flex-col items-center gap-12 text-center">
+    <Section id="home" className="relative overflow-hidden pt-40 pb-24 md:pt-48">
+      <div
+        aria-hidden
+        className="bg-brand-500/20 pointer-events-none absolute top-[30%] left-1/2 -z-10 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]"
+      />
+
+      <HeroRing />
+
+      <div className="relative flex flex-col items-center gap-8 text-center">
         <FadeIn>
-          <HeroRing />
+          <h1 className="text-[clamp(3rem,7vw,6rem)] leading-[1.05] font-extrabold tracking-tight">
+            Zain Irfan
+          </h1>
+          <p className="text-text-secondary mt-3 text-xl font-semibold md:text-2xl">
+            Full-Stack Software Engineer
+          </p>
         </FadeIn>
 
-        <FadeIn delay={0.15} className="max-w-2xl">
+        <FadeIn delay={0.15} className="max-w-xl">
           <p className="text-text-secondary">
             Building scalable healthcare SaaS, AI-powered products, and modern web and
             mobile applications.

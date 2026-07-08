@@ -59,15 +59,22 @@ export const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        root: {
-          borderRadius: 10,
-        },
+        root: { borderRadius: 10 },
       },
     },
     MuiPaper: {
       styleOverrides: {
+        root: { backgroundImage: "none" },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
         root: {
-          backgroundImage: "none", // kills MUI's default dark-mode gradient overlay
+          transition: "box-shadow 0.2s ease, border-color 0.2s ease",
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: tokens.brand[400],
+            boxShadow: `0 0 0 3px ${tokens.brand[500]}26`,
+          },
         },
       },
     },

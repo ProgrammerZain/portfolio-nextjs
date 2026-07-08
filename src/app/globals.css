@@ -33,9 +33,14 @@
   }
 
   body {
-    background-color: var(--color-bg);
+    background: radial-gradient(
+      ellipse at top,
+      oklch(0.19 0.02 264) 0%,
+      var(--color-bg) 65%
+    );
     color: var(--color-text-primary);
     font-family: var(--font-sans);
+    line-height: 1.6;
   }
 
   ::selection {
@@ -45,6 +50,12 @@
 }
 
 @layer utilities {
+  .glass {
+    background-color: var(--color-surface-glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--color-border);
+  }
+
   @keyframes orbit-spin {
     from {
       transform: rotate(0deg);
@@ -53,7 +64,6 @@
       transform: rotate(360deg);
     }
   }
-
   @keyframes orbit-spin-reverse {
     from {
       transform: rotate(0deg);
@@ -62,17 +72,23 @@
       transform: rotate(-360deg);
     }
   }
-
   .animate-orbit {
-    animation: orbit-spin 50s linear infinite;
+    animation: orbit-spin 60s linear infinite;
+  }
+  .animate-orbit-counter {
+    animation: orbit-spin-reverse 60s linear infinite;
   }
 
-  .animate-orbit-counter {
-    animation: orbit-spin-reverse 50s linear infinite;
+  @keyframes dot-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(91, 127, 255, 0.45);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(91, 127, 255, 0);
+    }
   }
-  .glass {
-    background-color: var(--color-surface-glass);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--color-border);
+  .animate-dot-pulse {
+    animation: dot-pulse 2.4s ease-in-out infinite;
   }
 }
