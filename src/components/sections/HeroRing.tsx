@@ -1,46 +1,110 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useEffect } from "react";
 import { techItems } from "@/constants/tech";
 import { cn } from "@/lib/utils";
 
-const RADIUS = 300;
+interface HeroRingProps {
+  activeTech: string | null;
+  setActiveTech: (id: string | null) => void;
+}
 
-export default function HeroRing() {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+export default function HeroRing({ activeTech, setActiveTech }: HeroRingProps) {
+  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const animationRef = useRef<number>(0);
+  const startTimeRef = useRef<number>(0);
+  const pausedTimeRef = useRef<number>(0);
+  const isPausedRef = useRef(false);
+
+  useEffect(() => {
+    startTimeRef.current = Date.now();
+
+    const animate = () => {
+      const now = Date.now();
+      let elapsed;
+
+      if (isPausedRef.current) {
+        elapsed = pausedTimeRef.current;
+      } else {
+        elapsed = now - startTimeRef.current;
+        pausedTimeRef.current = elapsed;
+      }
+
+      const progress = (elapsed / 1000 / 90) % 1;
+
+      techItems.forEach((item, i) => {
+        const el = itemsRef.current[i];
+        if (!el) return;
+
+        const baseAngle = (i / techItems.length) * 360;
+        const totalAngle = (baseAngle + progress * 360) % 360;
+        const normalizedAngle = Math.abs(((totalAngle + 180) % 360) - 180);
+
+        const opacity = 0.3 + 0.6 * (1 - normalizedAngle / 180);
+        const scale = 0.85 + 0.15 * (1 - normalizedAngle / 180);
+        const zIndex =
+          activeTech === item.id ? 100 : Math.round((1 - normalizedAngle / 180) * 10);
+
+        el.style.transform = `rotateY(${baseAngle + progress * 360}deg) translateZ(280px) rotateY(-${baseAngle + progress * 360}deg) scale(${scale})`;
+        el.style.opacity = String(opacity);
+        el.style.zIndex = String(zIndex);
+      });
+
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [activeTech]);
+
+  const handleMouseEnter = (id: string) => {
+    isPausedRef.current = true;
+    setActiveTech(id);
+  };
+
+  const handleMouseLeave = () => {
+    isPausedRef.current = false;
+    setActiveTech(null);
+  };
 
   return (
-    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-      <div className="animate-orbit relative h-[600px] w-[600px] md:h-[720px] md:w-[720px]">
-        {techItems.map((item, i) => {
-          const angle = (i / techItems.length) * 2 * Math.PI;
-          const x = RADIUS * Math.cos(angle);
-          const y = RADIUS * Math.sin(angle);
-
-          return (
-            <div
-              key={item.id}
-              className="absolute top-1/2 left-1/2"
-              style={{ transform: `translate(${x}px, ${y}px)` }}
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+      <div
+        className="relative h-[600px] w-[600px] md:h-[720px] md:w-[720px]"
+        style={{
+          perspective: "1200px",
+        }}
+      >
+        {techItems.map((item, i) => (
+          <div
+            key={item.id}
+            ref={(el) => {
+              itemsRef.current[i] = el;
+            }}
+            className="absolute top-1/2 left-1/2"
+            style={{
+              transformStyle: "preserve-3d",
+              pointerEvents: "auto",
+            }}
+          >
+            <button
+              type="button"
+              onMouseEnter={() => handleMouseEnter(item.id)}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => handleMouseEnter(item.id)}
+              className={cn(
+                "-translate-x-1/2 -translate-y-1/2 rounded-full border px-3 py-1.5 text-[11px] font-medium whitespace-nowrap transition-all duration-300",
+                activeTech === item.id
+                  ? "border-brand-400/70 text-text-primary bg-brand-500/10 shadow-lg"
+                  : "text-text-secondary border-white/[0.08]",
+              )}
             >
-              <div className="animate-orbit-counter">
-                <button
-                  type="button"
-                  onMouseEnter={() => setHoveredId(item.id)}
-                  onMouseLeave={() => setHoveredId(null)}
-                  className={cn(
-                    "pointer-events-auto -translate-x-1/2 -translate-y-1/2 rounded-full border px-3 py-1.5 text-[11px] font-medium whitespace-nowrap transition-all duration-300",
-                    hoveredId === item.id
-                      ? "border-brand-400/50 text-text-primary opacity-90"
-                      : "text-text-secondary border-white/[0.06] opacity-40",
-                  )}
-                >
-                  {item.label}
-                </button>
-              </div>
-            </div>
-          );
-        })}
+              {item.label}
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
