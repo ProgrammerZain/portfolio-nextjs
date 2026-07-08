@@ -32,9 +32,9 @@ export default function HeroRing({ activeTech, setActiveTech }: HeroRingProps) {
 
       const progress = (elapsed / 1000 / 90) % 1;
 
-      techItems.forEach((_, i) => {
-        const item = itemsRef.current[i];
-        if (!item) return;
+      techItems.forEach((item, i) => {
+        const el = itemsRef.current[i];
+        if (!el) return;
 
         const baseAngle = (i / techItems.length) * 360;
         const totalAngle = (baseAngle + progress * 360) % 360;
@@ -42,11 +42,12 @@ export default function HeroRing({ activeTech, setActiveTech }: HeroRingProps) {
 
         const opacity = 0.3 + 0.6 * (1 - normalizedAngle / 180);
         const scale = 0.85 + 0.15 * (1 - normalizedAngle / 180);
-        const zIndex = Math.round((1 - normalizedAngle / 180) * 20);
+        const zIndex =
+          activeTech === item.id ? 100 : Math.round((1 - normalizedAngle / 180) * 10);
 
-        item.style.transform = `rotateY(${baseAngle + progress * 360}deg) translateZ(280px) rotateY(-${baseAngle + progress * 360}deg) scale(${scale})`;
-        item.style.opacity = String(opacity);
-        item.style.zIndex = String(zIndex);
+        el.style.transform = `rotateY(${baseAngle + progress * 360}deg) translateZ(280px) rotateY(-${baseAngle + progress * 360}deg) scale(${scale})`;
+        el.style.opacity = String(opacity);
+        el.style.zIndex = String(zIndex);
       });
 
       animationRef.current = requestAnimationFrame(animate);
@@ -56,7 +57,7 @@ export default function HeroRing({ activeTech, setActiveTech }: HeroRingProps) {
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [activeTech]);
 
   const handleMouseEnter = (id: string) => {
     isPausedRef.current = true;
