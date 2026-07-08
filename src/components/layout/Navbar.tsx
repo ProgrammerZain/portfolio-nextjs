@@ -13,6 +13,34 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const activeId = useActiveSection(navLinks.map((l) => l.href.slice(1)));
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const handleChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.slice(1);
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+      window.history.pushState(null, "", href);
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -33,7 +61,11 @@ export default function Navbar() {
         )}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-8">
-          <a href="#home" className="text-lg font-bold tracking-tight">
+          <a
+            href="#home"
+            onClick={(e) => handleNavClick(e, "#home")}
+            className="text-lg font-bold tracking-tight"
+          >
             Zain<span className="text-brand-400">.</span>
           </a>
 
@@ -44,6 +76,7 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className={cn(
                     "relative py-1 text-sm font-medium transition-colors",
                     isActive
@@ -97,7 +130,10 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setDrawerOpen(false)}
+                onClick={(e) => {
+                  handleNavClick(e, link.href);
+                  setDrawerOpen(false);
+                }}
                 className="text-text-secondary hover:text-text-primary text-base font-medium"
               >
                 {link.label}

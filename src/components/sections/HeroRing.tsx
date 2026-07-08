@@ -1,21 +1,35 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { techItems } from "@/constants/tech";
 import { cn } from "@/lib/utils";
 
-export default function HeroRing() {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+interface HeroRingProps {
+  activeTech: string | null;
+  setActiveTech: (id: string | null) => void;
+}
+
+export default function HeroRing({ activeTech, setActiveTech }: HeroRingProps) {
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const animationRef = useRef<number>(0);
   const startTimeRef = useRef<number>(0);
+  const pausedTimeRef = useRef<number>(0);
+  const isPausedRef = useRef(false);
 
   useEffect(() => {
     startTimeRef.current = Date.now();
 
     const animate = () => {
       const now = Date.now();
-      const elapsed = now - startTimeRef.current;
+      let elapsed;
+
+      if (isPausedRef.current) {
+        elapsed = pausedTimeRef.current;
+      } else {
+        elapsed = now - startTimeRef.current;
+        pausedTimeRef.current = elapsed;
+      }
+
       const progress = (elapsed / 1000 / 90) % 1;
 
       techItems.forEach((_, i) => {
@@ -28,7 +42,7 @@ export default function HeroRing() {
 
         const opacity = 0.3 + 0.6 * (1 - normalizedAngle / 180);
         const scale = 0.85 + 0.15 * (1 - normalizedAngle / 180);
-        const zIndex = Math.round((1 - normalizedAngle / 180) * 10);
+        const zIndex = Math.round((1 - normalizedAngle / 180) * 20);
 
         item.style.transform = `rotateY(${baseAngle + progress * 360}deg) translateZ(280px) rotateY(-${baseAngle + progress * 360}deg) scale(${scale})`;
         item.style.opacity = String(opacity);
@@ -43,6 +57,16 @@ export default function HeroRing() {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
   }, []);
+
+  const handleMouseEnter = (id: string) => {
+    isPausedRef.current = true;
+    setActiveTech(id);
+  };
+
+  const handleMouseLeave = () => {
+    isPausedRef.current = false;
+    setActiveTech(null);
+  };
 
   return (
     <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
@@ -66,11 +90,12 @@ export default function HeroRing() {
           >
             <button
               type="button"
-              onMouseEnter={() => setHoveredId(item.id)}
-              onMouseLeave={() => setHoveredId(null)}
+              onMouseEnter={() => handleMouseEnter(item.id)}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => handleMouseEnter(item.id)}
               className={cn(
                 "-translate-x-1/2 -translate-y-1/2 rounded-full border px-3 py-1.5 text-[11px] font-medium whitespace-nowrap transition-all duration-300",
-                hoveredId === item.id
+                activeTech === item.id
                   ? "border-brand-400/70 text-text-primary bg-brand-500/10 shadow-lg"
                   : "text-text-secondary border-white/[0.08]",
               )}
