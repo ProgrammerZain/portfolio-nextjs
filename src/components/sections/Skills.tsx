@@ -1,41 +1,35 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Section from "@/components/ui/Section";
-import FadeIn from "@/components/animations/FadeIn";
-import StaggerContainer, { staggerItem } from "@/components/animations/StaggerContainer";
-import GlassCard from "@/components/ui/GlassCard";
+import SectionHeader from "@/components/ui/SectionHeader";
+import { contentGridClasses } from "@/components/ui/ContentGrid";
+import StaggerContainer from "@/components/animations/StaggerContainer";
+import StaggerItem from "@/components/animations/StaggerItem";
+import Chip from "@/components/ui/Chip";
+import { cardSurfaceClass } from "@/lib/card-surface";
 import { skills } from "@/constants/skills";
+import { cn } from "@/lib/utils";
 
 export default function Skills() {
   return (
     <Section id="skills">
-      <FadeIn className="text-center">
-        <p className="text-brand-400 text-sm font-semibold tracking-widest uppercase">
-          Toolbox
-        </p>
-        <h2 className="mt-3 text-3xl font-bold md:text-4xl">Skills</h2>
-      </FadeIn>
+      <SectionHeader eyebrow="Toolbox" title="Skills" />
 
-      <StaggerContainer className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <StaggerContainer className={contentGridClasses}>
         {skills.map((group) => (
-          <motion.div key={group.category} variants={staggerItem}>
-            <GlassCard className="h-full">
-              <h3 className="text-brand-400 text-sm font-bold tracking-wide uppercase">
-                {group.category}
-              </h3>
+          <StaggerItem key={group.category}>
+            <div className={cn(cardSurfaceClass(), "flex h-full flex-col p-6")}>
+              <h3 className="text-xl font-bold">{group.category}</h3>
+              <p className="text-text-secondary/60 mt-2 text-xs">
+                {group.items.length} skills
+              </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <span
-                    key={item}
-                    className="text-text-primary rounded-full bg-white/5 px-3 py-1.5 text-sm"
-                  >
-                    {item}
-                  </span>
+                  <Chip key={item}>{item}</Chip>
                 ))}
               </div>
-            </GlassCard>
-          </motion.div>
+            </div>
+          </StaggerItem>
         ))}
       </StaggerContainer>
     </Section>

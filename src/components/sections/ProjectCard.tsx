@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ChevronDown, Code2 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import type { Project } from "@/types";
+import Chip from "@/components/ui/Chip";
+import { cardSurfaceClass } from "@/lib/card-surface";
 import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
@@ -21,12 +23,7 @@ export default function ProjectCard({ project, isOpen, onToggle }: ProjectCardPr
     <motion.div
       whileHover={isOpen ? undefined : { y: -4 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className={cn(
-        "glass group overflow-hidden rounded-[var(--radius-card)] transition-shadow duration-300",
-        isOpen
-          ? "shadow-[0_20px_45px_-15px_rgba(0,0,0,0.55)]"
-          : "hover:shadow-[0_20px_45px_-15px_rgba(0,0,0,0.55)]",
-      )}
+      className={cn(cardSurfaceClass(isOpen), "group")}
     >
       <div className="from-brand-500/25 via-accent-500/15 relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br to-transparent">
         {!imageError ? (
@@ -94,15 +91,14 @@ export default function ProjectCard({ project, isOpen, onToggle }: ProjectCardPr
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.stack.map((tech, idx) => (
-                    <motion.span
+                    <motion.div
                       key={tech}
                       initial={{ opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: idx * 0.03 }}
-                      className="text-text-secondary rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium"
                     >
-                      {tech}
-                    </motion.span>
+                      <Chip>{tech}</Chip>
+                    </motion.div>
                   ))}
                 </div>
               </div>

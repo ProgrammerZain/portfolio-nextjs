@@ -1,38 +1,58 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
 import Section from "@/components/ui/Section";
-import FadeIn from "@/components/animations/FadeIn";
-import GlassCard from "@/components/ui/GlassCard";
+import SectionHeader from "@/components/ui/SectionHeader";
+import ContentGrid from "@/components/ui/ContentGrid";
+import CollapsibleCard from "@/components/ui/CollapsibleCard";
+import Chip from "@/components/ui/Chip";
 import { education } from "@/constants/education";
 
 export default function Education() {
+  const [openEntryId, setOpenEntryId] = useState<string | null>(null);
+
   return (
     <Section id="education">
-      <FadeIn className="mx-auto max-w-2xl">
-        <p className="text-brand-400 text-sm font-semibold tracking-widest uppercase">
-          Education
-        </p>
-        <h2 className="mt-3 text-3xl font-bold md:text-4xl">Education</h2>
-      </FadeIn>
+      <SectionHeader eyebrow="Education" title="Education" />
 
-      <FadeIn delay={0.1} className="mt-10">
+      <ContentGrid columns={1}>
         {education.map((edu) => (
-          <GlassCard key={edu.id} className="mt-4">
-            <div className="flex flex-col gap-2">
-              <h3 className="text-text-primary text-xl font-semibold">{edu.degree}</h3>
-              <div className="flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
-                <span className="text-brand-400 font-medium">{edu.institution}</span>
-                <span className="text-text-secondary text-sm font-medium">
-                  {edu.period}
-                </span>
-              </div>
+          <motion.div
+            key={edu.id}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.4 }}
+          >
+            <CollapsibleCard
+              isOpen={openEntryId === edu.id}
+              onToggle={() => setOpenEntryId(openEntryId === edu.id ? null : edu.id)}
+              meta={edu.period}
+              title={edu.degree}
+              subtitle={edu.institution}
+              hint={
+                edu.subjects
+                  ? `${edu.subjects.length} related subjects · tap to expand`
+                  : undefined
+              }
+            >
               {edu.subjects && (
-                <p className="text-text-secondary mt-2 text-sm">
-                  Related Subjects: {edu.subjects.join(", ")}
-                </p>
+                <div>
+                  <p className="text-brand-400 mb-3 text-xs font-semibold tracking-wide uppercase">
+                    Related Subjects
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {edu.subjects.map((subject) => (
+                      <Chip key={subject}>{subject}</Chip>
+                    ))}
+                  </div>
+                </div>
               )}
-            </div>
-          </GlassCard>
+            </CollapsibleCard>
+          </motion.div>
         ))}
-      </FadeIn>
+      </ContentGrid>
     </Section>
   );
 }

@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer className="border-border border-t py-10">
-      <Container className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
+      <Container className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <p className="text-text-secondary text-sm">
           © {year} Zain Irfan. Built with Next.js.
         </p>

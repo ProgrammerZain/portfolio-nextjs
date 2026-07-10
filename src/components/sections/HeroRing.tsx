@@ -210,7 +210,7 @@ export default function HeroRing() {
   };
 
   return (
-    <div ref={wrapperRef} className="mx-auto w-full max-w-[680px] scroll-mt-24 px-1">
+    <div ref={wrapperRef} className="w-full max-w-[680px] scroll-mt-24">
       <div
         ref={containerRef}
         className={cn(
