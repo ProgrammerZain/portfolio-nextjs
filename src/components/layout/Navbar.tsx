@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo, useCallback } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Mail, MapPin, ExternalLink } from "lucide-react";
 import { SiGithub } from "react-icons/si";
@@ -79,10 +80,12 @@ export default function Navbar() {
             aria-label="Open profile"
           >
             <div className="group-hover:border-brand-400/60 group-hover:ring-brand-400/20 relative h-10 w-10 overflow-hidden rounded-full border border-white/10 transition-all duration-300 group-hover:ring-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/zain.png"
                 alt="Zain Irfan"
+                width={40}
+                height={40}
+                priority
                 className="h-full w-full object-cover"
               />
             </div>
@@ -168,10 +171,12 @@ export default function Navbar() {
             >
               <div className="flex gap-4">
                 <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border border-white/10">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src="/zain_fullImage.png"
                     alt="Zain Irfan"
+                    width={80}
+                    height={80}
+                    loading="lazy"
                     className="h-full w-full object-cover"
                   />
                 </div>

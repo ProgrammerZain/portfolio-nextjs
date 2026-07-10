@@ -54,4 +54,12 @@ export const projects: Project[] = [
     image: "/projects/messaging.png",
     stack: ["React", "React Native", "WebSockets", "APNs", "RingCentral"],
   },
+  {
+    id: "kharcha",
+    title: "Kharcha — Expense Tracker",
+    summary:
+      "Personal finance app for tracking income and expenses over time across multiple accounts, guest access, and varied transaction types. Includes dark and light themes, category and currency management, per-account app lock, monthly budgets, analytics, transaction history, profile settings, and customizable week and month start dates.",
+    image: "/projects/kharcha.png",
+    stack: ["React Native", "TypeScript", "Expo", "SQLite"],
+  },
 ];

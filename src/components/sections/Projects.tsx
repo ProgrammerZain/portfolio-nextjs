@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Section from "@/components/ui/Section";
 import FadeIn from "@/components/animations/FadeIn";
 import StaggerContainer from "@/components/animations/StaggerContainer";
@@ -6,6 +9,8 @@ import ProjectCard from "./ProjectCard";
 import StaggerItem from "@/components/animations/StaggerItem";
 
 export default function Projects() {
+  const [openProjectId, setOpenProjectId] = useState<string | null>(null);
+
   return (
     <Section id="projects">
       <FadeIn className="text-center">
@@ -18,7 +23,13 @@ export default function Projects() {
       <StaggerContainer className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2">
         {projects.map((project) => (
           <StaggerItem key={project.id}>
-            <ProjectCard project={project} />
+            <ProjectCard
+              project={project}
+              isOpen={openProjectId === project.id}
+              onToggle={() =>
+                setOpenProjectId(openProjectId === project.id ? null : project.id)
+              }
+            />
           </StaggerItem>
         ))}
       </StaggerContainer>
