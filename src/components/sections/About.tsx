@@ -16,8 +16,8 @@ export default function About() {
         description={aboutContent.description}
       />
 
-      <ContentGrid>
-        <FadeIn delay={0.05}>
+      <ContentGrid columns={1}>
+        <FadeIn delay={0.05} className="w-full sm:w-auto">
           <div className="grid grid-cols-3 gap-4">
             {metrics.map((metric) => (
               <GlassCard key={metric.label} className="p-4">
