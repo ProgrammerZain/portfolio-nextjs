@@ -1,11 +1,20 @@
+"use server";
+
+import { validateContactForm } from "@/lib/validation";
+import { ContactSubmissionError } from "@/lib/contact-errors";
 import type { ContactFormData } from "@/types";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 
-export class ContactSubmissionError extends Error {}
-
 export async function submitContactForm(data: ContactFormData): Promise<void> {
-  const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+  const errors = validateContactForm(data);
+
+  if (Object.keys(errors).length > 0) {
+    throw new ContactSubmissionError("Please fix the highlighted fields.");
+  }
+
+  const accessKey =
+    process.env.WEB3FORMS_ACCESS_KEY ?? process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
   if (!accessKey) {
     throw new ContactSubmissionError(

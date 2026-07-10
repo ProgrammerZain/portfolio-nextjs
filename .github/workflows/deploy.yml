@@ -31,16 +31,10 @@ jobs:
       - name: Run TypeScript checks
         run: npm run typecheck
 
-      - name: Build project
-        run: npm run build
-        env:
-          NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY }}
-
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-
-      - name: Deploy to Netlify
-        run: netlify deploy --build --prod
+      - name: Build and deploy to Netlify
+        run: npx netlify deploy --build --prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          WEB3FORMS_ACCESS_KEY: ${{ secrets.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY }}
+          NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY }}
