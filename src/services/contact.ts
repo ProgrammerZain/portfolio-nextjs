@@ -1,5 +1,3 @@
-"use server";
-
 import { validateContactForm } from "@/lib/validation";
 import { ContactSubmissionError } from "@/lib/contact-errors";
 import type { ContactFormData } from "@/types";
@@ -29,12 +27,11 @@ export async function submitContactForm(data: ContactFormData): Promise<void> {
       access_key: accessKey,
       subject: `New portfolio message from ${data.name}`,
       from_name: data.name,
-      email: data.email,
-      message: data.message,
+      ...data,
     }),
   });
 
-  const result = await response.json();
+  const result: { success?: boolean; message?: string } = await response.json();
 
   if (!response.ok || !result.success) {
     throw new ContactSubmissionError(
