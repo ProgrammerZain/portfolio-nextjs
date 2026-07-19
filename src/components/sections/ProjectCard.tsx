@@ -1,7 +1,4 @@
-"use client";
-
 import { useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ChevronDown, Code2 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
@@ -27,14 +24,12 @@ export default function ProjectCard({ project, isOpen, onToggle }: ProjectCardPr
     >
       <div className="from-brand-500/25 via-accent-500/15 relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br to-transparent">
         {!imageError ? (
-          <Image
+          <img
             src={project.image}
             alt={`${project.title} preview`}
-            fill
             loading="lazy"
             onError={() => setImageError(true)}
-            className="bg-no-repeat object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(min-width: 768px) 50vw, 100vw"
+            className="absolute inset-0 h-full w-full bg-no-repeat object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">

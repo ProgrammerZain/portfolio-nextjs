@@ -2,6 +2,21 @@ import type { Project } from "@/types";
 
 export const projects: Project[] = [
   {
+    id: "shop-stock-manager",
+    title: "Shop Stock Manager",
+    summary:
+      "An offline-first, multi-business mobile inventory manager designed for small businesses. Track stock counts, execute warehouse transactions, manage roles, and monitor logging history with full local-first efficiency.",
+    image: "/projects/shop-stock-manager.png",
+    stack: [
+      "React Native",
+      "TypeScript",
+      "SQLite",
+      "Expo",
+      "Context API",
+    ],
+    href: "/shopstockmanager",
+  },
+  {
     id: "healthcare-saas",
     title: "Healthcare SaaS Platform",
     summary:
