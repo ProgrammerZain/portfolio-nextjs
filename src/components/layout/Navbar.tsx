@@ -1,7 +1,4 @@
-"use client";
-
 import { useEffect, useState, useMemo, useCallback } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Mail, MapPin, ExternalLink } from "lucide-react";
 import { SiGithub } from "react-icons/si";
@@ -12,6 +9,7 @@ import { contactInfo } from "@/constants/contact";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { cn } from "@/lib/utils";
 import Button from "@/components/ui/Button";
+import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -38,7 +36,15 @@ export default function Navbar() {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
+  const location = useLocation();
+  const pathname = location.pathname;
+  const isHome = pathname === "/";
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!isHome) {
+      setPopoverOpen(false);
+      return;
+    }
     e.preventDefault();
     const targetId = href.slice(1);
     const targetElement = document.getElementById(targetId);
@@ -80,12 +86,11 @@ export default function Navbar() {
             aria-label="Open profile"
           >
             <div className="group-hover:border-brand-400/60 group-hover:ring-brand-400/20 relative h-10 w-10 overflow-hidden rounded-full border border-white/10 transition-all duration-300 group-hover:ring-2">
-              <Image
+              <img
                 src="/zain.png"
                 alt="Zain Irfan"
                 width={40}
                 height={40}
-                priority
                 className="h-full w-full object-cover"
               />
             </div>
@@ -98,7 +103,7 @@ export default function Navbar() {
               return (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href={isHome ? link.href : `/${link.href}`}
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={cn(
                     "relative py-1 text-sm font-medium transition-colors",
@@ -171,7 +176,7 @@ export default function Navbar() {
             >
               <div className="flex gap-4">
                 <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border border-white/10">
-                  <Image
+                  <img
                     src="/zain_fullImage.png"
                     alt="Zain Irfan"
                     width={80}
@@ -266,7 +271,7 @@ export default function Navbar() {
                   ].map((link) => (
                     <a
                       key={link.href}
-                      href={link.href}
+                      href={isHome ? link.href : `/${link.href}`}
                       onClick={(e) => handleNavClick(e, link.href)}
                       className="text-text-secondary hover:text-text-primary flex items-center justify-between rounded-lg border border-white/5 px-3 py-2 text-sm transition-all hover:border-white/20"
                     >
@@ -294,7 +299,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={isHome ? link.href : `/${link.href}`}
                 onClick={(e) => {
                   handleNavClick(e, link.href);
                   setDrawerOpen(false);
