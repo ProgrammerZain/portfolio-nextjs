@@ -14,105 +14,164 @@ export default function TermsAndConditions() {
       <Navbar />
       <main className="min-h-screen pt-28 pb-16">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto max-w-3xl">
             {/* Navigation back */}
-            <Link 
-              to="/shopstockmanager" 
-              className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-brand-400 mb-8 transition-colors"
+            <Link
+              to="/shopstockmanager"
+              className="text-text-secondary hover:text-brand-400 mb-8 inline-flex items-center gap-2 text-sm transition-colors"
             >
               <ArrowLeft size={16} />
               <span>Back to App Overview</span>
             </Link>
 
             {/* Header */}
-            <div className="flex items-center gap-4 mb-8">
-              <div className="p-3 bg-accent-500/10 border border-accent-500/20 rounded-2xl w-fit">
-                <FileText className="h-8 w-8 text-accent-400" />
+            <div className="mb-8 flex items-center gap-4">
+              <div className="bg-accent-500/10 border-accent-500/20 w-fit rounded-2xl border p-3">
+                <FileText className="text-accent-400 h-8 w-8" />
               </div>
               <div>
-                <h1 className="text-3xl font-extrabold text-text-primary tracking-tight md:text-4xl">
+                <h1 className="text-text-primary text-3xl font-extrabold tracking-tight md:text-4xl">
                   Terms & Conditions
                 </h1>
-                <p className="text-xs text-text-secondary mt-1">
+                <p className="text-text-secondary mt-1 text-xs">
                   Shop Stock Manager · Last Updated: {lastUpdated}
                 </p>
               </div>
             </div>
 
             {/* Content card */}
-            <div className="glass rounded-3xl p-8 md:p-10 border border-white/5 space-y-8 text-text-secondary text-sm md:text-base leading-relaxed">
+            <div className="glass text-text-secondary space-y-8 rounded-3xl border border-white/5 p-8 text-sm leading-relaxed md:p-10 md:text-base">
               <section className="space-y-3">
-                <h2 className="text-lg font-bold text-text-primary">1. Agreement to Terms</h2>
+                <h2 className="text-text-primary text-lg font-bold">
+                  1. Agreement to Terms
+                </h2>
                 <p>
-                  By installing, opening, or utilizing the <strong>Shop Stock Manager</strong> mobile application (the &ldquo;Software&rdquo;), you agree to be bound by these Terms & Conditions. If you do not agree to these terms, do not install or use the Software.
+                  By installing, opening, or utilizing the{" "}
+                  <strong>Shop Stock Manager</strong> mobile application (the
+                  &ldquo;Software&rdquo;), you agree to be bound by these Terms &
+                  Conditions. If you do not agree to these terms, do not install or use
+                  the Software.
                 </p>
               </section>
 
               <section className="space-y-3">
-                <h2 className="text-lg font-bold text-text-primary">2. License & Scope of Use</h2>
+                <h2 className="text-text-primary text-lg font-bold">
+                  2. License & Scope of Use
+                </h2>
                 <p>
-                  We grant you a personal, non-exclusive, non-transferable, revocable license to use the Software solely for managing your local business inventory, warehouse logs, and staff assignments in accordance with these terms.
+                  We grant you a personal, non-exclusive, non-transferable, revocable
+                  license to use the Software solely for managing your local business
+                  inventory, warehouse logs, and staff assignments in accordance with
+                  these terms.
                 </p>
-                <p>
-                  You agree NOT to:
-                </p>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>Decompile, reverse-engineer, or attempt to extract the source code of the Software.</li>
-                  <li>Use the Software for any illegal activity, copyright infringement, or unauthorized distribution.</li>
-                  <li>Bypass any local authentication locks or data separation mechanisms.</li>
+                <p>You agree NOT to:</p>
+                <ul className="list-disc space-y-2 pl-6">
+                  <li>
+                    Decompile, reverse-engineer, or attempt to extract the source code of
+                    the Software.
+                  </li>
+                  <li>
+                    Use the Software for any illegal activity, copyright infringement, or
+                    unauthorized distribution.
+                  </li>
+                  <li>
+                    Bypass any local authentication locks or data separation mechanisms.
+                  </li>
                 </ul>
               </section>
 
               <section className="space-y-3">
-                <h2 className="text-lg font-bold text-text-primary">3. Disclaimer of Warranties (Stock Count Accuracy)</h2>
-                <p className="p-4 bg-brand-500/5 border border-brand-500/10 rounded-2xl text-xs sm:text-sm text-text-secondary">
-                  <strong className="text-text-primary block mb-1">CRITICAL INVENTORY NOTICE:</strong>
-                  The Software is provided &ldquo;AS IS&rdquo; and &ldquo;AS AVAILABLE&rdquo; without warranty of any kind. Since the Software relies on local-first database entries, offline sync flags, and user input validation, we do not warrant that the stock counts, transaction summaries, tax calculations, or history audits generated by the app will be 100% accurate, complete, or error-free at all times. Users are solely responsible for periodic physical stock reconciliations.
+                <h2 className="text-text-primary text-lg font-bold">
+                  3. Disclaimer of Warranties (Stock Count Accuracy)
+                </h2>
+                <p className="bg-brand-500/5 border-brand-500/10 text-text-secondary rounded-2xl border p-4 text-xs sm:text-sm">
+                  <strong className="text-text-primary mb-1 block">
+                    CRITICAL INVENTORY NOTICE:
+                  </strong>
+                  The Software is provided &ldquo;AS IS&rdquo; and &ldquo;AS
+                  AVAILABLE&rdquo; without warranty of any kind. Since the Software relies
+                  on local-first database entries, offline sync flags, and user input
+                  validation, we do not warrant that the stock counts, transaction
+                  summaries, tax calculations, or history audits generated by the app will
+                  be 100% accurate, complete, or error-free at all times. Users are solely
+                  responsible for periodic physical stock reconciliations.
                 </p>
                 <p>
-                  We disclaim all warranties, express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.
+                  We disclaim all warranties, express or implied, including but not
+                  limited to the implied warranties of merchantability, fitness for a
+                  particular purpose, and non-infringement.
                 </p>
               </section>
 
               <section className="space-y-3">
-                <h2 className="text-lg font-bold text-text-primary">4. Limitation of Financial Liability</h2>
+                <h2 className="text-text-primary text-lg font-bold">
+                  4. Limitation of Financial Liability
+                </h2>
                 <p>
-                  To the maximum extent permitted by applicable law, in no event shall Zain Irfan, or any developers associated with the Software, be liable for any direct, indirect, incidental, special, exemplary, or consequential damages. This includes, without limitation, loss of business profits, inventory discrepancy costs, warehouse operating disruptions, system down-time, loss of business data, or financial losses resulting from the use or inability to use the Software, even if advised of the possibility of such damages.
+                  To the maximum extent permitted by applicable law, in no event shall
+                  Zain Irfan, or any developers associated with the Software, be liable
+                  for any direct, indirect, incidental, special, exemplary, or
+                  consequential damages. This includes, without limitation, loss of
+                  business profits, inventory discrepancy costs, warehouse operating
+                  disruptions, system down-time, loss of business data, or financial
+                  losses resulting from the use or inability to use the Software, even if
+                  advised of the possibility of such damages.
                 </p>
               </section>
 
               <section className="space-y-3">
-                <h2 className="text-lg font-bold text-text-primary">5. User Accountability & Credentials</h2>
+                <h2 className="text-text-primary text-lg font-bold">
+                  5. User Accountability & Credentials
+                </h2>
                 <p>
-                  You are solely responsible for maintaining the confidentiality of the local authentication credentials created in the Software. Since data is stored directly in your local device directory, safeguarding the physical device and its data backups falls entirely under your operational responsibility.
+                  You are solely responsible for maintaining the confidentiality of the
+                  local authentication credentials created in the Software. Since data is
+                  stored directly in your local device directory, safeguarding the
+                  physical device and its data backups falls entirely under your
+                  operational responsibility.
                 </p>
               </section>
 
               <section className="space-y-3">
-                <h2 className="text-lg font-bold text-text-primary">6. Termination</h2>
+                <h2 className="text-text-primary text-lg font-bold">6. Termination</h2>
                 <p>
-                  Your right to use the Software terminates immediately if you violate any provision of these Terms. Upon termination, you must cease all use of the Software and delete all copies from your mobile devices.
+                  Your right to use the Software terminates immediately if you violate any
+                  provision of these Terms. Upon termination, you must cease all use of
+                  the Software and delete all copies from your mobile devices.
                 </p>
               </section>
 
               <section className="space-y-3">
-                <h2 className="text-lg font-bold text-text-primary">7. Changes to Terms</h2>
+                <h2 className="text-text-primary text-lg font-bold">
+                  7. Changes to Terms
+                </h2>
                 <p>
-                  We reserve the right to modify these Terms at any time. Your continued use of the Software following the posting of changes constitutes your acceptance of the updated terms.
+                  We reserve the right to modify these Terms at any time. Your continued
+                  use of the Software following the posting of changes constitutes your
+                  acceptance of the updated terms.
                 </p>
               </section>
 
               <section className="space-y-3">
-                <h2 className="text-lg font-bold text-text-primary">8. Contact & Legal Enquiries</h2>
+                <h2 className="text-text-primary text-lg font-bold">
+                  8. Contact & Legal Enquiries
+                </h2>
                 <p>
-                  If you have questions regarding these Terms & Conditions or wish to resolve user disputes, contact:
+                  If you have questions regarding these Terms & Conditions or wish to
+                  resolve user disputes, contact:
                 </p>
-                <div className="p-4 bg-white/5 rounded-xl border border-white/5 w-fit">
+                <div className="w-fit rounded-xl border border-white/5 bg-white/5 p-4">
                   <p className="text-sm">
                     <strong>Developer Contact:</strong> Zain Irfan
                   </p>
                   <p className="text-sm">
-                    <strong>Email:</strong> <a href="mailto:zainirfan565@gmail.com" className="text-brand-400 hover:underline">zainirfan565@gmail.com</a>
+                    <strong>Email:</strong>{" "}
+                    <a
+                      href="mailto:zainirfan565@gmail.com"
+                      className="text-brand-400 hover:underline"
+                    >
+                      zainirfan565@gmail.com
+                    </a>
                   </p>
                 </div>
               </section>

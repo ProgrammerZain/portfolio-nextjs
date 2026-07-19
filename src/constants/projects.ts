@@ -5,15 +5,9 @@ export const projects: Project[] = [
     id: "shop-stock-manager",
     title: "Shop Stock Manager",
     summary:
-      "An offline-first, multi-business mobile inventory manager designed for small businesses. Track stock counts, execute warehouse transactions, manage roles, and monitor logging history with full local-first efficiency.",
+      "An offline-first mobile inventory manager designed for small shop owners. Track products, organize categories, manage supplier profiles, and log local stock transactions (in/out/adjustments) entirely on-device.",
     image: "/projects/shop-stock-manager.png",
-    stack: [
-      "React Native",
-      "TypeScript",
-      "SQLite",
-      "Expo",
-      "Context API",
-    ],
+    stack: ["React Native", "TypeScript", "SQLite", "Expo", "Context API"],
     href: "/shopstockmanager",
   },
   {
